@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prajwal Pawar — Design & Technology Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f4f1ec;
+    --accent: #e8400c;
+    --muted: #7a7569;
+    --card: #ffffff;
+    --border: #d8d3ca;
+    --warm-dark: #1a1714;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width .2s, height .2s, background .2s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all .12s ease-out;
+    opacity: .6;
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 4rem;
+    background: rgba(244,241,236,.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: .8rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; font-weight: 500;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta {
+    padding: .55rem 1.4rem;
+    background: var(--ink); color: var(--paper);
+    font-size: .78rem; letter-spacing: 1.5px; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    transition: background .2s, color .2s;
+  }
+  .nav-cta:hover { background: var(--accent); }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding-top: 7rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -20%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,64,12,.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: .72rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); font-weight: 500;
+    border: 1px solid var(--accent);
+    padding: .35rem .9rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    line-height: .95;
+    letter-spacing: 1px;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .hero-title em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 1rem; line-height: 1.7;
+    color: var(--muted); max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-ctas { display: flex; gap: 1rem; align-items: center; }
+  .btn-primary {
+    padding: .85rem 2.2rem;
+    background: var(--ink); color: var(--paper);
+    font-size: .82rem; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    transition: all .25s;
+    border: 2px solid var(--ink);
+  }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+  .btn-ghost {
+    padding: .85rem 2.2rem;
+    background: transparent; color: var(--ink);
+    font-size: .82rem; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    border: 2px solid var(--border);
+    transition: all .25s;
+  }
+  .btn-ghost:hover { border-color: var(--ink); }
+
+  .hero-right {
+    position: relative;
+    display: flex; flex-direction: column; gap: 1.2rem;
+  }
+  .hero-stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+  .hero-stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s;
+  }
+  .hero-stat:hover { transform: translateY(-4px); }
+  .hero-stat::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s;
+  }
+  .hero-stat:hover::after { transform: scaleX(1); }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem; color: var(--ink);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: .75rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); margin-top: .35rem;
+  }
+  .hero-marquee {
+    overflow: hidden; padding: 1rem 0;
+    background: var(--ink); color: var(--paper);
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px; font-size: .95rem;
+  }
+  .marquee-inner {
+    display: flex; gap: 3rem;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-inner span { color: var(--accent); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ABOUT */
+  #about { background: var(--warm-dark); color: var(--paper); }
+  #about .container { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-label {
+    font-size: .72rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.2rem;
+  }
+  .about-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.2; margin-bottom: 1.5rem;
+    color: var(--paper);
+  }
+  .about-title em { color: var(--accent); font-style: italic; }
+  .about-body {
+    font-size: .95rem; line-height: 1.8;
+    color: rgba(244,241,236,.65);
+    margin-bottom: 1.5rem;
+  }
+  .about-right { display: flex; flex-direction: column; gap: 1.5rem; }
+  .about-card {
+    border: 1px solid rgba(244,241,236,.12);
+    padding: 1.5rem;
+    position: relative;
+  }
+  .about-card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; color: rgba(232,64,12,.2);
+    position: absolute; top: .5rem; right: 1rem;
+    line-height: 1;
+  }
+  .about-card-title {
+    font-size: .8rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .5rem;
+  }
+  .about-card-text {
+    font-size: .88rem; line-height: 1.6;
+    color: rgba(244,241,236,.6);
+  }
+
+  /* SKILLS */
+  #skills .section-header { text-align: center; margin-bottom: 4rem; }
+  .section-label {
+    font-size: .72rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .8rem; display: block;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1; color: var(--ink);
+  }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .skill-card {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 1.8rem 1.5rem;
+    transition: all .25s; position: relative; overflow: hidden;
+    cursor: default;
+  }
+  .skill-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--ink); transform: scaleY(0); transform-origin: bottom;
+    transition: transform .3s ease; z-index: 0;
+  }
+  .skill-card:hover::before { transform: scaleY(1); }
+  .skill-card:hover .skill-name { color: var(--paper); }
+  .skill-card:hover .skill-tools { color: rgba(244,241,236,.5); }
+  .skill-icon {
+    font-size: 1.8rem; margin-bottom: 1rem;
+    position: relative; z-index: 1;
+  }
+  .skill-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem; letter-spacing: 1px;
+    color: var(--ink); margin-bottom: .4rem;
+    position: relative; z-index: 1;
+    transition: color .3s;
+  }
+  .skill-tools {
+    font-size: .75rem; color: var(--muted);
+    position: relative; z-index: 1;
+    transition: color .3s;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--ink); color: var(--paper); }
+  #projects .section-header { margin-bottom: 4rem; }
+  #projects .section-title { color: var(--paper); }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+  }
+  .project-card {
+    background: var(--warm-dark);
+    border: 1px solid rgba(255,255,255,.06);
+    padding: 2.5rem 2rem;
+    position: relative; overflow: hidden;
+    transition: background .3s;
+    cursor: pointer;
+  }
+  .project-card:hover { background: #252220; }
+  .project-card.featured {
+    grid-column: span 2;
+  }
+  .project-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: .85rem; letter-spacing: 3px;
+    color: var(--accent); margin-bottom: 1.5rem;
+  }
+  .project-category {
+    display: inline-block;
+    font-size: .68rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--paper); background: rgba(255,255,255,.08);
+    padding: .3rem .8rem; margin-bottom: 1rem;
+  }
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem; line-height: 1.3;
+    color: var(--paper); margin-bottom: .8rem;
+  }
+  .project-card.featured .project-title { font-size: 2rem; }
+  .project-desc {
+    font-size: .85rem; line-height: 1.7;
+    color: rgba(244,241,236,.55); margin-bottom: 1.5rem;
+  }
+  .project-meta {
+    display: flex; gap: .8rem; flex-wrap: wrap;
+  }
+  .project-tag {
+    font-size: .7rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(244,241,236,.35); border: 1px solid rgba(255,255,255,.1);
+    padding: .25rem .7rem;
+  }
+  .project-arrow {
+    position: absolute; bottom: 2rem; right: 2rem;
+    font-size: 1.5rem; color: var(--accent);
+    opacity: 0; transform: translateX(-10px);
+    transition: all .3s;
+  }
+  .project-card:hover .project-arrow { opacity: 1; transform: translateX(0); }
+
+  /* DESIGN SECTION */
+  #design .section-header { margin-bottom: 4rem; }
+  .design-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem;
+  }
+  .design-item {
+    background: var(--card); border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .design-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(14,14,14,.12);
+  }
+  .design-preview {
+    height: 240px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    position: relative; overflow: hidden;
+  }
+  .design-preview.ui-preview { background: #1a1a2e; }
+  .design-preview.poster-preview { background: linear-gradient(135deg, #2d1b69, #11092c); }
+  .design-preview.social-preview { background: linear-gradient(135deg, #0f3460, #16213e); }
+  .design-preview.branding-preview { background: #f8f8f8; }
+  .preview-mockup {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+  }
+  .design-info { padding: 1.5rem; }
+  .design-label {
+    font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .5rem;
+  }
+  .design-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem; color: var(--ink); margin-bottom: .5rem;
+  }
+  .design-text {
+    font-size: .82rem; line-height: 1.6; color: var(--muted);
+  }
+
+  /* CRITIQUE PANEL */
+  #critique {
+    background: #fff8f4;
+    border-top: 4px solid var(--accent);
+  }
+  .critique-header { margin-bottom: 3rem; }
+  .critique-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .critique-card {
+    padding: 2rem; border: 1px solid var(--border);
+    background: white;
+    position: relative;
+  }
+  .critique-card.strength { border-left: 4px solid #22c55e; }
+  .critique-card.weakness { border-left: 4px solid var(--accent); }
+  .critique-card-label {
+    font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    margin-bottom: 1rem; font-weight: 600;
+  }
+  .critique-card.strength .critique-card-label { color: #22c55e; }
+  .critique-card.weakness .critique-card-label { color: var(--accent); }
+  .critique-list { list-style: none; }
+  .critique-list li {
+    font-size: .88rem; line-height: 1.7; color: var(--muted);
+    padding: .4rem 0; border-bottom: 1px solid var(--border);
+    display: flex; gap: .75rem;
+  }
+  .critique-list li::before {
+    content: '→'; color: var(--accent); flex-shrink: 0;
+  }
+  .critique-card.strength .critique-list li::before { content: '✓'; color: #22c55e; }
+
+  /* RECOMMENDATIONS */
+  #recommendations { background: var(--warm-dark); color: var(--paper); }
+  #recommendations .section-title { color: var(--paper); }
+  .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .rec-card {
+    border: 1px solid rgba(255,255,255,.1);
+    padding: 2rem;
+  }
+  .rec-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .rec-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem; letter-spacing: 1px;
+    color: var(--accent); margin-bottom: .5rem;
+  }
+  .rec-text {
+    font-size: .83rem; line-height: 1.7;
+    color: rgba(244,241,236,.55);
+  }
+
+  /* CASE STUDIES */
+  #casestudies { background: var(--paper); }
+  .case-study {
+    border: 1px solid var(--border); margin-bottom: 2rem;
+    background: white;
+  }
+  .case-header {
+    padding: 2.5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: flex-start;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .case-header:hover { background: #fafafa; }
+  .case-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem; color: rgba(14,14,14,.06);
+    line-height: 1; flex-shrink: 0; margin-right: 1.5rem;
+    align-self: center;
+  }
+  .case-info { flex: 1; }
+  .case-cat {
+    font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .4rem;
+  }
+  .case-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem; color: var(--ink); margin-bottom: .4rem;
+  }
+  .case-subtitle {
+    font-size: .85rem; color: var(--muted);
+  }
+  .case-toggle {
+    font-size: 1.5rem; color: var(--muted);
+    align-self: center; padding: .5rem; flex-shrink: 0;
+    transition: transform .3s;
+  }
+  .case-body {
+    padding: 0 3rem;
+    max-height: 0; overflow: hidden;
+    transition: max-height .4s ease, padding .4s ease;
+  }
+  .case-body.open { max-height: 1000px; padding: 2.5rem 3rem; }
+  .case-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .case-field-label {
+    font-size: .68rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .4rem;
+  }
+  .case-field-val {
+    font-size: .88rem; color: var(--ink); line-height: 1.5;
+  }
+  .case-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; letter-spacing: 2px;
+    color: var(--ink); margin: 1.5rem 0 .7rem;
+    border-top: 1px solid var(--border); padding-top: 1.2rem;
+  }
+  .case-text {
+    font-size: .88rem; line-height: 1.8; color: var(--muted);
+  }
+
+  /* AWARDS */
+  #awards { background: var(--paper); }
+  .awards-banner {
+    background: var(--ink);
+    padding: 3rem 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  .awards-banner-label {
+    font-size: .68rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .5rem;
+  }
+  .awards-banner-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: var(--paper); line-height: 1;
+  }
+  .awards-banner-sub {
+    font-size: .85rem; color: rgba(244,241,236,.5);
+    margin-top: .5rem;
+  }
+  .awards-banner-count {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem; color: var(--accent);
+    line-height: 1; text-align: right;
+  }
+  .awards-banner-count span {
+    display: block; font-size: .7rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: rgba(244,241,236,.3); font-family: 'DM Sans', sans-serif;
+  }
+  .awards-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+  }
+  .award-card {
+    border: 1px solid var(--border);
+    padding: 2.5rem 2rem;
+    background: white;
+    position: relative; overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+  }
+  .award-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 60px rgba(14,14,14,.1);
+  }
+  .award-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .award-card.gold::before { background: linear-gradient(90deg, #f59e0b, #fcd34d); }
+  .award-card.silver::before { background: linear-gradient(90deg, #94a3b8, #cbd5e1); }
+  .award-medal {
+    font-size: 2.8rem; margin-bottom: 1.2rem; display: block;
+  }
+  .award-rank {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem; letter-spacing: 3px;
+    margin-bottom: .4rem;
+  }
+  .award-card.gold .award-rank { color: #d97706; }
+  .award-card.silver .award-rank { color: #64748b; }
+  .award-competition {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem; color: var(--ink);
+    margin-bottom: .6rem; line-height: 1.3;
+  }
+  .award-scope {
+    display: inline-block;
+    font-size: .68rem; letter-spacing: 2px; text-transform: uppercase;
+    padding: .3rem .8rem;
+    margin-bottom: .8rem;
+  }
+  .award-card.gold .award-scope {
+    background: #fef3c7; color: #92400e;
+  }
+  .award-card.silver .award-scope {
+    background: #f1f5f9; color: #475569;
+  }
+  .award-detail {
+    font-size: .82rem; color: var(--muted); line-height: 1.6;
+  }
+
+  /* CERTIFICATIONS */
+  #certifications { background: var(--ink); color: var(--paper); }
+  #certifications .section-title { color: var(--paper); }
+  .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .cert-card {
+    border: 1px solid rgba(255,255,255,.1);
+    padding: 2rem;
+    transition: border-color .3s, transform .3s;
+  }
+  .cert-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .cert-issuer {
+    font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .8rem;
+  }
+  .cert-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem; color: var(--paper); margin-bottom: .4rem;
+  }
+  .cert-note {
+    font-size: .78rem; color: rgba(244,241,236,.4);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--paper);
+    text-align: center;
+  }
+  .contact-inner { max-width: 700px; margin: 0 auto; }
+  .contact-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: .9; color: var(--ink);
+    margin-bottom: 2rem;
+  }
+  .contact-big em { color: var(--accent); font-family: 'DM Serif Display', serif; font-style: italic; }
+  .contact-sub {
+    font-size: 1rem; color: var(--muted); line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link {
+    padding: .9rem 2rem;
+    font-size: .78rem; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    transition: all .25s;
+  }
+  .contact-link:hover, .contact-link.primary {
+    background: var(--ink); color: var(--paper);
+  }
+  .contact-link.primary:hover { background: var(--accent); border-color: var(--accent); }
+
+  /* FOOTER */
+  footer {
+    background: var(--warm-dark); color: rgba(244,241,236,.4);
+    padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: .78rem; letter-spacing: 1px;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  /* DIVIDER */
+  .section-divider {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .section-divider::before, .section-divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ANIMATE IN */
+  .fade-up {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESEARCH */
+  #research {
+    background: var(--warm-dark);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  #research::before {
+    content: 'AI';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28vw;
+    color: rgba(255,255,255,.02);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .research-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-bottom: 4rem;
+  }
+  .research-status {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.2rem;
+  }
+  .research-status::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(1.4); }
+  }
+  .research-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--paper); line-height: 1.2;
+  }
+  .research-title em { color: var(--accent); font-style: italic; }
+  .research-intro {
+    font-size: .95rem; line-height: 1.8;
+    color: rgba(244,241,236,.6);
+    margin-top: 1.5rem;
+  }
+  .research-right {
+    padding-top: .5rem;
+  }
+  .research-scope-title {
+    font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: rgba(244,241,236,.3); margin-bottom: 1rem;
+  }
+  .research-tags {
+    display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: 2rem;
+  }
+  .research-tag {
+    font-size: .75rem; letter-spacing: 1.5px; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,.12);
+    padding: .4rem 1rem; color: rgba(244,241,236,.6);
+    transition: all .2s;
+  }
+  .research-tag:hover {
+    border-color: var(--accent); color: var(--accent);
+  }
+  .research-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: rgba(255,255,255,.06);
+  }
+  .research-card {
+    background: var(--warm-dark);
+    padding: 2.5rem 2rem;
+    transition: background .3s;
+    position: relative;
+  }
+  .research-card:hover { background: #252220; }
+  .research-card-icon {
+    font-size: 1.8rem; margin-bottom: 1.2rem;
+  }
+  .research-card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.05rem; letter-spacing: 1.5px;
+    color: var(--accent); margin-bottom: .6rem;
+  }
+  .research-card-text {
+    font-size: .83rem; line-height: 1.7;
+    color: rgba(244,241,236,.5);
+  }
+  .research-card-status {
+    display: inline-block;
+    font-size: .62rem; letter-spacing: 2px; text-transform: uppercase;
+    margin-top: 1.2rem; padding: .25rem .7rem;
+    border: 1px solid rgba(232,64,12,.4); color: var(--accent);
+  }
+  .research-footer {
+    margin-top: 3rem;
+    padding: 2rem 2.5rem;
+    border: 1px solid rgba(255,255,255,.08);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 2rem;
+  }
+  .research-footer-text {
+    font-size: .88rem; color: rgba(244,241,236,.45); line-height: 1.6;
+    max-width: 600px;
+  }
+  .research-footer-text strong { color: rgba(244,241,236,.8); }
+  .research-collab {
+    flex-shrink: 0;
+    padding: .8rem 1.8rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: .75rem; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; white-space: nowrap;
+    transition: all .25s;
+  }
+  .research-collab:hover { background: var(--accent); color: var(--paper); }
+
+  /* FEATURED PROJECTS */
+
+  /* SCROLL BAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--ink); }
+
+  /* DARK MODE */
+  body.dark-mode {
+    --ink: #f4f1ec;
+    --paper: #0e0e0e;
+    --card: #1a1714;
+    --border: #2e2b27;
+    --muted: #9e9890;
+    --warm-dark: #141210;
+  }
+  body.dark-mode nav { background: rgba(14,14,14,.94); }
+  body.dark-mode .hero-stat { background: #1a1714; }
+  body.dark-mode .skill-card { background: #1a1714; }
+  body.dark-mode .skill-card::before { background: var(--paper); }
+  body.dark-mode .skill-card:hover .skill-name { color: var(--ink); }
+  body.dark-mode .design-item { background: #1a1714; }
+  body.dark-mode .critique-card { background: #1a1714; }
+  body.dark-mode .case-study { background: #1a1714; }
+  body.dark-mode .case-header:hover { background: #201e1a; }
+  body.dark-mode .award-card { background: #1a1714; }
+  body.dark-mode .about-title { color: var(--paper); }
+
+  /* DARK MODE TOGGLE BUTTON */
+  .theme-toggle {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+    width: 48px; height: 48px;
+    background: var(--ink); color: var(--paper);
+    border: none; border-radius: 50%;
+    font-size: 1.2rem; cursor: none;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    transition: background .3s, transform .2s;
+  }
+  .theme-toggle:hover { transform: scale(1.1); background: var(--accent); }
+
+  /* EXPERIENCE SECTION */
+  #experience { background: var(--paper); }
+  .exp-timeline { margin-top: 3rem; position: relative; }
+  .exp-timeline::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .exp-item {
+    padding: 0 0 3rem 3rem;
+    position: relative;
+  }
+  .exp-item::before {
+    content: ''; position: absolute;
+    left: -5px; top: .4rem;
+    width: 12px; height: 12px;
+    background: var(--accent); border-radius: 50%;
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .exp-date {
+    font-size: .68rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .4rem;
+  }
+  .exp-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem; color: var(--ink); margin-bottom: .2rem;
+  }
+  .exp-org {
+    font-size: .82rem; font-weight: 500; color: var(--muted);
+    margin-bottom: .8rem; letter-spacing: .5px;
+  }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: .85rem; line-height: 1.7; color: var(--muted);
+    padding: .2rem 0;
+    display: flex; gap: .75rem;
+  }
+  .exp-bullets li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .8rem; }
+  .exp-tag {
+    font-size: .65rem; letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--border); color: var(--muted);
+    padding: .2rem .7rem;
+  }
+
+  /* RESOURCES SECTION */
+  #resources {
+    background: var(--warm-dark);
+    color: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  #resources::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(232,64,12,.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(232,64,12,.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .resources-header { margin-bottom: 4rem; }
+  .resources-header .section-title { color: var(--paper); }
+  .resources-subtitle {
+    font-size: .95rem; color: rgba(244,241,236,.5);
+    margin-top: .8rem; max-width: 580px; line-height: 1.7;
+  }
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    position: relative; z-index: 1;
+  }
+  .resource-card {
+    position: relative;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 2px;
+    padding: 2.5rem;
+    background: rgba(255,255,255,.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: all .35s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+  }
+  .resource-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(232,64,12,.08) 0%, transparent 60%);
+    opacity: 0; transition: opacity .35s;
+  }
+  .resource-card:hover {
+    border-color: rgba(232,64,12,.4);
+    background: rgba(255,255,255,.06);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(232,64,12,.15);
+  }
+  .resource-card:hover::before { opacity: 1; }
+  .resource-card-glow {
+    position: absolute; top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,64,12,.15) 0%, transparent 70%);
+    opacity: 0; transition: opacity .35s;
+    pointer-events: none;
+  }
+  .resource-card:hover .resource-card-glow { opacity: 1; }
+  .resource-icon-wrap {
+    width: 56px; height: 56px;
+    border: 1px solid rgba(232,64,12,.3);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem; margin-bottom: 1.5rem;
+    position: relative; z-index: 1;
+    background: rgba(232,64,12,.06);
+    transition: all .3s;
+  }
+  .resource-card:hover .resource-icon-wrap {
+    background: rgba(232,64,12,.15);
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(232,64,12,.2);
+  }
+  .resource-category {
+    font-size: .65rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: .5rem;
+    position: relative; z-index: 1;
+  }
+  .resource-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem; color: var(--paper);
+    margin-bottom: .6rem; line-height: 1.2;
+    position: relative; z-index: 1;
+  }
+  .resource-desc {
+    font-size: .83rem; line-height: 1.7;
+    color: rgba(244,241,236,.5);
+    margin-bottom: 1.8rem;
+    position: relative; z-index: 1;
+  }
+  .resource-btns {
+    display: flex; gap: .75rem; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .resource-btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .65rem 1.4rem;
+    font-size: .72rem; letter-spacing: 2px; text-transform: uppercase;
+    text-decoration: none; font-weight: 500;
+    transition: all .25s; border: 1px solid;
+    white-space: nowrap;
+  }
+  .resource-btn.primary {
+    background: var(--accent); color: var(--paper);
+    border-color: var(--accent);
+  }
+  .resource-btn.primary:hover {
+    background: transparent; color: var(--accent);
+  }
+  .resource-btn.ghost {
+    background: transparent; color: rgba(244,241,236,.6);
+    border-color: rgba(255,255,255,.15);
+  }
+  .resource-btn.ghost:hover {
+    border-color: var(--accent); color: var(--accent);
+    background: rgba(232,64,12,.06);
+  }
+  .resource-btn svg {
+    width: 14px; height: 14px; flex-shrink: 0;
+  }
+  .resource-divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232,64,12,.3), transparent);
+    margin: .8rem 0;
+    position: relative; z-index: 1;
+  }
+  .resource-meta {
+    font-size: .7rem; color: rgba(244,241,236,.25);
+    position: relative; z-index: 1;
+    letter-spacing: 1px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 2rem; }
+    #hero { grid-template-columns: 1fr; padding-top: 6rem; }
+    .hero-stat-grid { grid-template-columns: 1fr 1fr; }
+    #about .container { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: span 1; }
+    .design-grid { grid-template-columns: 1fr; }
+    .critique-grid { grid-template-columns: 1fr; }
+    .rec-grid { grid-template-columns: 1fr; }
+    .cert-grid { grid-template-columns: 1fr 1fr; }
+    .case-grid { grid-template-columns: 1fr 1fr; }
+    .awards-grid { grid-template-columns: 1fr; }
+    .research-header { grid-template-columns: 1fr; gap: 2rem; }
+    .research-cards { grid-template-columns: 1fr; }
+    .resources-grid { grid-template-columns: 1fr; }
+    .exp-timeline::before { left: 0; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Dark Mode Toggle -->
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">🌙</button>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#hero">PP<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#awards">Awards</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Let's Talk</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container" style="grid-column: 1/-1; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+    <div>
+      <div class="hero-tag fade-up">🏆 National · District · University Award Winner</div>
+      <h1 class="hero-title fade-up">
+        Prajwal<br>
+        <em>Pawar</em>
+      </h1>
+      <p class="hero-sub fade-up">
+        Award-winning UI/UX Designer & Graphic Designer based in Hubballi, Karnataka. National-level Photography winner. District-level Graphic Design champion. I build things that look good — and win.
+      </p>
+      <div class="hero-ctas fade-up">
+        <a class="btn-primary" href="#projects">View My Work</a>
+        <a class="btn-ghost" href="#contact">Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-right fade-up">
+      <div class="hero-stat-grid">
+        <div class="hero-stat">
+          <div class="stat-num">🥇</div>
+          <div class="stat-label">National Level — Photography</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">🥇</div>
+          <div class="stat-label">District Level — Graphic Design</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">🥈</div>
+          <div class="stat-label">University Level — Graphic Design</div>
+        </div>
+        <div class="hero-stat">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Design Projects</div>
+        </div>
+      </div>
+      <div class="hero-marquee">
+        <div class="marquee-inner">
+          <span>FIGMA</span> · UI/UX · <span>GRAPHIC DESIGN</span> · CANVA · <span>VIDEO EDITING</span> · PYTHON · <span>CYBERSECURITY</span> · CAPCUT · <span>AI RESEARCH</span> · CHATBOTS · <span>LLMs</span> · FIGMA · UI/UX · <span>GRAPHIC DESIGN</span> · CANVA · <span>VIDEO EDITING</span> · PYTHON · <span>CYBERSECURITY</span> · CAPCUT · <span>AI RESEARCH</span> · CHATBOTS · <span>LLMs</span> ·
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div>
+      <div class="about-label">Who I Am</div>
+      <h2 class="about-title">A designer who thinks<br>like a <em>technologist</em></h2>
+      <p class="about-body">
+        I'm a B.Sc. MECS student at P.C. Jabin Science College, Hubballi — studying Mathematics, Electronics, and Computer Science. I've competed and won at national, district, and university level in design and photography — which tells you this isn't a hobby, it's a craft I take seriously.
+      </p>
+      <p class="about-body">
+        Currently conducting active research into AI Chatbots and conversational systems — exploring how large language models behave, how AI tools are reshaping productivity workflows, and what that means for the humans building with them. This sits at the intersection of everything I care about: technology, communication, and design.
+      </p>
+      <p class="about-body">
+        Long-term goal: advanced Cybersecurity — government cyber cells, high-stakes security organizations, eventually a Master's from IIT or abroad. Design is how I communicate complex ideas clearly. Research is how I stay ahead of what's next.
+      </p>
+      <a class="btn-primary" href="#contact" style="display:inline-block; margin-top:1rem;">Work With Me</a>
+    </div>
+    <div class="about-right">
+      <div class="about-card fade-up">
+        <div class="about-card-num">01</div>
+        <div class="about-card-title">Design</div>
+        <div class="about-card-text">From Figma wireframes to final Canva/Photoshop deliverables. I design for clarity, impact, and real audiences — not just aesthetics.</div>
+      </div>
+      <div class="about-card fade-up">
+        <div class="about-card-num">02</div>
+        <div class="about-card-title">Technology</div>
+        <div class="about-card-text">Python, Linux, software testing, and a growing focus on cybersecurity. I understand the stack behind the screen — and I'm actively researching the AI layer being built on top of it.</div>
+      </div>
+      <div class="about-card fade-up">
+        <div class="about-card-num">03</div>
+        <div class="about-card-title">Content</div>
+        <div class="about-card-text">Video editing on CapCut and Premiere Pro, social media content creation. Storytelling through motion and visual hierarchy.</div>
+      </div>
+      <div class="about-card fade-up" style="border-color: rgba(232,64,12,.3);">
+        <div class="about-card-num" style="color:rgba(232,64,12,.3);">04</div>
+        <div class="about-card-title" style="color:var(--accent);">AI Research ↗ Active</div>
+        <div class="about-card-text">Ongoing exploration of AI chatbots, conversational systems, and AI productivity tooling — studying how these systems are designed, where they fail, and how they reshape human workflows.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Capabilities</span>
+      <h2 class="section-title">Skills & Tools</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-name">UI/UX Design</div>
+        <div class="skill-tools">Figma · Wireframing · Prototyping</div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">✏️</div>
+        <div class="skill-name">Graphic Design</div>
+        <div class="skill-tools">Canva · Photoshop · Poster Design</div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">🎬</div>
+        <div class="skill-name">Video Editing</div>
+        <div class="skill-tools">CapCut · Adobe Premiere Pro</div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">📱</div>
+        <div class="skill-name">Social Media</div>
+        <div class="skill-tools">Content Creation · Brand Visuals</div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-tools">Scripting · Automation · Projects</div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">🔐</div>
+        <div class="skill-name">Cybersecurity</div>
+        <div class="skill-tools">Linux · Security Fundamentals</div>
+      </div>
+      <div class="skill-card fade-up">
+        <div class="skill-icon">🤖</div>
+        <div class="skill-name">AI Research</div>
+        <div class="skill-tools">Chatbots · LLMs · Productivity AI · Active Study</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <div class="research-header">
+      <div>
+        <div class="research-status">Active Research Project</div>
+        <h2 class="research-title">Exploring the <em>AI Frontier</em> —<br>Chatbots, Conversation &amp; Productivity</h2>
+        <p class="research-intro">
+          Ongoing independent research into how AI chatbots and large language models work — their design, their failure modes, and their real-world impact on human productivity. This isn't a course I completed. It's a field I'm actively mapping.
+        </p>
+      </div>
+      <div class="research-right">
+        <div class="research-scope-title">Research Scope</div>
+        <div class="research-tags">
+          <span class="research-tag">AI Chatbots</span>
+          <span class="research-tag">Conversational AI</span>
+          <span class="research-tag">Large Language Models</span>
+          <span class="research-tag">AI Productivity Tools</span>
+          <span class="research-tag">Human-AI Interaction</span>
+          <span class="research-tag">Prompt Engineering</span>
+          <span class="research-tag">Workflow Automation</span>
+          <span class="research-tag">AI Tool Evaluation</span>
+        </div>
+        <div class="research-scope-title">Status</div>
+        <div style="font-size:.88rem; color:rgba(244,241,236,.55); line-height:1.6;">
+          Active exploration — building experiments, documenting findings, evaluating tools against real tasks. Targeting a written output (article, paper, or documented study) as a formal deliverable.
+        </div>
+      </div>
+    </div>
+
+    <div class="research-cards">
+      <div class="research-card fade-up">
+        <div class="research-card-icon">💬</div>
+        <div class="research-card-title">Chatbot Behaviour Study</div>
+        <div class="research-card-text">Systematically exploring how different AI chatbots (ChatGPT, Claude, Gemini, etc.) respond to identical prompts — documenting differences in reasoning, tone, refusals, and accuracy. Building a personal comparison framework.</div>
+        <span class="research-card-status">In Progress</span>
+      </div>
+      <div class="research-card fade-up">
+        <div class="research-card-icon">⚡</div>
+        <div class="research-card-title">AI Productivity Tooling</div>
+        <div class="research-card-text">Evaluating how AI tools — writing assistants, image generators, automation tools — change the speed and quality of creative and technical work. Focus on practical workflows for students, designers, and small teams.</div>
+        <span class="research-card-status">Active</span>
+      </div>
+      <div class="research-card fade-up">
+        <div class="research-card-icon">🧠</div>
+        <div class="research-card-title">Human-AI Interaction Design</div>
+        <div class="research-card-text">Exploring how the interface design of AI tools affects user trust, comprehension, and over-reliance. Connecting UX design thinking to AI product design — a gap that most researchers and most designers both ignore.</div>
+        <span class="research-card-status">Exploring</span>
+      </div>
+    </div>
+
+    <div class="research-footer fade-up">
+      <p class="research-footer-text">
+        <strong>Why this matters for my work:</strong> Understanding AI isn't just an academic interest — it directly informs how I design for AI-powered products, how I use AI tools in my creative process, and where I see cybersecurity and AI converging. This research is the foundation of where I'm going, not just what I'm curious about.
+      </p>
+      <a class="research-collab" href="#contact">Collaborate on Research →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label" style="color:var(--accent)">Portfolio</span>
+      <h2 class="section-title">Featured Work</h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card featured fade-up">
+        <div class="project-num">01 / FEATURED</div>
+        <div class="project-category">UI/UX · Figma</div>
+        <h3 class="project-title">Nike Product Landing Pages</h3>
+        <p class="project-desc">Designed two distinct Nike landing page concepts — Air Jordan 1 Chicago and Nike Air Max Alpha Trainer 5 — exploring contrasting design languages: a minimal warm tone vs. a bold dark athletic aesthetic. Focused on typographic hierarchy, product photography composition, and conversion-oriented layout.</p>
+        <div class="project-meta">
+          <span class="project-tag">Figma</span>
+          <span class="project-tag">UI Design</span>
+          <span class="project-tag">E-Commerce</span>
+          <span class="project-tag">Typography</span>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">02</div>
+        <div class="project-category">Graphic Design · Canva</div>
+        <h3 class="project-title">P.C. Jabin Science College — Event Posters</h3>
+        <p class="project-desc">Series of official institutional event posters including AI & ML course launch, 3D Printing Workshop, and Sustainable Energy seminar. Real client, real constraints, real deliverables.</p>
+        <div class="project-meta">
+          <span class="project-tag">Canva</span>
+          <span class="project-tag">Institutional Branding</span>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">03</div>
+        <div class="project-category">UI/UX · Figma</div>
+        <h3 class="project-title">Dakshbook — Social Login UI</h3>
+        <p class="project-desc">Split-screen login interface exploration for a social platform concept. Studied Facebook's authentication UX patterns and redesigned with a distinct blue identity system.</p>
+        <div class="project-meta">
+          <span class="project-tag">Figma</span>
+          <span class="project-tag">Auth Flow</span>
+          <span class="project-tag">Color Systems</span>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">04</div>
+        <div class="project-category">Graphic Design · Canva</div>
+        <h3 class="project-title">DEADEND — Music Release Cover</h3>
+        <p class="project-desc">Album/single artwork for artist Saana (@urvashi_saana). Dark, dramatic editorial aesthetic with geometric triangle motifs, a silhouetted figure, and Spotify pre-save callout. Strongest editorial piece in the portfolio.</p>
+        <div class="project-meta">
+          <span class="project-tag">Music Branding</span>
+          <span class="project-tag">Editorial Design</span>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">05</div>
+        <div class="project-category">UI/UX · Figma</div>
+        <h3 class="project-title">Nunito SaaS Landing Page</h3>
+        <p class="project-desc">"Work Smarter Faster" — a B2B SaaS product landing page exploring bold sans-serif typography, high-contrast black/white layouts, and abstract geometric product visuals. Clean, conversion-focused design.</p>
+        <div class="project-meta">
+          <span class="project-tag">SaaS</span>
+          <span class="project-tag">Landing Page</span>
+          <span class="project-tag">B2B Design</span>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+      <div class="project-card fade-up">
+        <div class="project-num">06</div>
+        <div class="project-category">UI/UX · Figma</div>
+        <h3 class="project-title">WhatsApp UI Clone — Design Study</h3>
+        <p class="project-desc">Pixel-accurate component study of WhatsApp's chat list interface. Demonstrates mastery of mobile UI patterns, avatar systems, list components, and brand color fidelity.</p>
+        <div class="project-meta">
+          <span class="project-tag">Mobile UI</span>
+          <span class="project-tag">Component Design</span>
+        </div>
+        <div class="project-arrow">→</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section id="casestudies">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:3rem">
+      <span class="section-label">Deep Dives</span>
+      <h2 class="section-title">Case Studies</h2>
+    </div>
+
+    <!-- Case 1 -->
+    <div class="case-study fade-up">
+      <div class="case-header" onclick="toggleCase(this)">
+        <div class="case-num">01</div>
+        <div class="case-info">
+          <div class="case-cat">UI/UX Design · Figma</div>
+          <h3 class="case-title">Nike Landing Page — Dual Concept Study</h3>
+          <p class="case-subtitle">Exploring contrasting design languages for the world's most iconic sportswear brand</p>
+        </div>
+        <div class="case-toggle">+</div>
+      </div>
+      <div class="case-body">
+        <div class="case-grid">
+          <div>
+            <div class="case-field-label">Client / Context</div>
+            <div class="case-field-val">Self-initiated study — Nike (practice project)</div>
+          </div>
+          <div>
+            <div class="case-field-label">Tools Used</div>
+            <div class="case-field-val">Figma, Google Fonts</div>
+          </div>
+          <div>
+            <div class="case-field-label">Role</div>
+            <div class="case-field-val">Solo UI Designer</div>
+          </div>
+        </div>
+        <div class="case-section-title">OBJECTIVE</div>
+        <p class="case-text">To explore how the same brand (Nike) can be expressed through two completely different visual systems — one minimal and premium (Air Jordan), one bold and athletic (Air Max) — and demonstrate adaptability to client briefs.</p>
+        <div class="case-section-title">PROCESS</div>
+        <p class="case-text">Researched Nike's brand guidelines and competitor landing pages. For Air Jordan: chose a warm neutral background (#c4b9b0 tone), oversized display typography, and a reflective product placement to create a luxury sneaker feel. For Air Max: inverted to dark mode, italic heavy type, geometric circle backgrounds, and electric accents to communicate gym performance energy. Each layout prioritized a single CTA ("Add to Cart") above the fold.</p>
+        <div class="case-section-title">KEY DECISIONS</div>
+        <p class="case-text">Typography was the primary differentiator. Air Jordan used thin uppercase serif-adjacent lettering to feel high-end. Air Max used bold italic grotesque to feel powerful. Product image placement was intentional — Jordan floating compositionally, Air Max at an aggressive angle.</p>
+        <div class="case-section-title">WHAT I'D IMPROVE NOW</div>
+        <p class="case-text">Add user flow documentation, mobile responsive frames, and hover/interaction states. The Air Max body text is too small at mobile scale. The Air Jordan product reflection shadow could be more refined.</p>
+        <div class="case-section-title">PORTFOLIO DESCRIPTION</div>
+        <p class="case-text"><em>"A dual-concept Figma study exploring how visual language shapes brand perception — demonstrating that design isn't one-size-fits-all, even within the same brand identity."</em></p>
+      </div>
+    </div>
+
+    <!-- Case 2 -->
+    <div class="case-study fade-up">
+      <div class="case-header" onclick="toggleCase(this)">
+        <div class="case-num">02</div>
+        <div class="case-info">
+          <div class="case-cat">Graphic Design · Institutional Client</div>
+          <h3 class="case-title">P.C. Jabin Science College — Event Poster Series</h3>
+          <p class="case-subtitle">Official communications for AI, 3D Printing, and Science events</p>
+        </div>
+        <div class="case-toggle">+</div>
+      </div>
+      <div class="case-body">
+        <div class="case-grid">
+          <div>
+            <div class="case-field-label">Client</div>
+            <div class="case-field-val">KLE Society's P.C. Jabin Science College, Hubballi</div>
+          </div>
+          <div>
+            <div class="case-field-label">Tools Used</div>
+            <div class="case-field-val">Canva (poster design + branding)</div>
+          </div>
+          <div>
+            <div class="case-field-label">Role</div>
+            <div class="case-field-val">Graphic Designer</div>
+          </div>
+        </div>
+        <div class="case-section-title">OBJECTIVE</div>
+        <p class="case-text">Design a series of event promotion posters for official college events — AI & ML course launch, 3D Printing workshop, and Sustainable Energy seminar. Posters needed to carry institutional branding (KLE crest, college name, address) while being visually engaging for a student audience.</p>
+        <div class="case-section-title">PROCESS</div>
+        <p class="case-text">Each poster adapted to its event's tone: the AI poster used a vibrant purple-to-blue gradient with a friendly robot illustration to make technology approachable. The 3D Printing poster used a space/galaxy aesthetic with bold mixed-type hierarchy. The Science event used a green-themed nature aesthetic to reinforce the sustainability message. All followed the college's brand identity constraints.</p>
+        <div class="case-section-title">CHALLENGES</div>
+        <p class="case-text">Working within institutional constraints (mandatory crest, full address, specific resource person names) while keeping designs visually dynamic. Balancing information density with visual appeal for a student audience that scrolls quickly.</p>
+        <div class="case-section-title">WHAT I'D IMPROVE NOW</div>
+        <p class="case-text">The 3D Printing poster has a critical typo ("WROKSHOP") — in a professional context this would be a major quality-control failure. Always have a second pair of eyes proofread before final export. I'd also create more visual consistency across the series by establishing a shared design system (consistent crest placement, font pairing, footer treatment).</p>
+        <div class="case-section-title">PORTFOLIO DESCRIPTION</div>
+        <p class="case-text"><em>"Institutional graphic design for a real client with real constraints — balancing brand compliance, information hierarchy, and audience engagement across a multi-event poster series."</em></p>
+      </div>
+    </div>
+
+    <!-- Case 3 -->
+    <div class="case-study fade-up">
+      <div class="case-header" onclick="toggleCase(this)">
+        <div class="case-num">03</div>
+        <div class="case-info">
+          <div class="case-cat">Graphic Design · Music Industry</div>
+          <h3 class="case-title">DEADEND — Single Release Artwork for Saana</h3>
+          <p class="case-subtitle">Editorial music cover art for an independent artist's Spotify release</p>
+        </div>
+        <div class="case-toggle">+</div>
+      </div>
+      <div class="case-body">
+        <div class="case-grid">
+          <div>
+            <div class="case-field-label">Client</div>
+            <div class="case-field-val">Urvashi Saana (@urvashi_saana)</div>
+          </div>
+          <div>
+            <div class="case-field-label">Tools Used</div>
+            <div class="case-field-val">Canva / Photoshop</div>
+          </div>
+          <div>
+            <div class="case-field-label">Role</div>
+            <div class="case-field-val">Cover Art Designer</div>
+          </div>
+        </div>
+        <div class="case-section-title">OBJECTIVE</div>
+        <p class="case-text">Create a single cover artwork for "DEADEND" — a music release by indie artist Saana. The cover needed to communicate the emotional weight of the song title while being thumb-stopping on Spotify's algorithm-driven discovery feeds.</p>
+        <div class="case-section-title">PROCESS</div>
+        <p class="case-text">Chose a deep red palette to convey intensity and emotional rawness. Used a silhouetted female figure centered in a red circle/triangle geometry to create mystery and intrigue without revealing the artist directly. Typography: bold slab-serif "DEADEND" anchors the bottom; light-weight tracking on "URVASHI PRESENTS" creates editorial contrast. Spotify branding and pre-save callout placed functionally top-right.</p>
+        <div class="case-section-title">WHY THIS IS THE STRONGEST PIECE</div>
+        <p class="case-text">It solves a real business problem (pre-save conversion), serves a real client, communicates a concept (emotional duality, mystery), and demonstrates understanding of platform context (Spotify square artwork). This is the kind of work that belongs at the top of your portfolio.</p>
+        <div class="case-section-title">PORTFOLIO DESCRIPTION</div>
+        <p class="case-text"><em>"Cover art for an independent artist's single release — designed for Spotify's discovery context, combining editorial visual language with conversion-oriented platform callouts."</em></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="container">
+    <div class="awards-banner fade-up">
+      <div>
+        <div class="awards-banner-label">Competitions & Recognition</div>
+        <div class="awards-banner-title">Award-Winning<br>Designer</div>
+        <div class="awards-banner-sub">Competed and placed at national, district, and university level — before graduation.</div>
+      </div>
+      <div>
+        <div class="awards-banner-count">3<span>Awards Won</span></div>
+      </div>
+    </div>
+    <div class="awards-grid">
+
+      <div class="award-card gold fade-up">
+        <span class="award-medal">🥇</span>
+        <div class="award-rank">1st Place</div>
+        <div class="award-competition">Pixel Prose Photography Competition</div>
+        <span class="award-scope">National Level</span>
+        <p class="award-detail">Ranked #1 nationally in a photography competition requiring both technical and visual storytelling ability. Demonstrates that compositional precision and aesthetic judgment extend beyond digital design into real-world visual capture.</p>
+      </div>
+
+      <div class="award-card gold fade-up">
+        <span class="award-medal">🥇</span>
+        <div class="award-rank">1st Place</div>
+        <div class="award-competition">Graphic Design Competition</div>
+        <span class="award-scope">District Level</span>
+        <p class="award-detail">Won first place in a competitive graphic design event at district level — beating peers across multiple colleges. Direct validation that the design work in this portfolio holds up against real judging standards.</p>
+      </div>
+
+      <div class="award-card silver fade-up">
+        <span class="award-medal">🥈</span>
+        <div class="award-rank">2nd Place</div>
+        <div class="award-competition">Graphic Design Competition</div>
+        <span class="award-scope">University Level</span>
+        <p class="award-detail">Placed 2nd in a university-wide design competition — the broadest competitive field of the three. Finishing 2nd at university level as a current undergraduate student is a meaningful benchmark of skill relative to peers.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="resources">
+  <div class="container">
+    <div class="resources-header fade-up">
+      <span class="section-label">Downloads</span>
+      <h2 class="section-title" style="color:var(--paper)">Portfolio &amp; Resources</h2>
+      <p class="resources-subtitle">Explore my professional resume, UI/UX portfolio and graphic design portfolio.</p>
+    </div>
+    <div class="resources-grid">
+
+      <div class="resource-card fade-up">
+        <div class="resource-card-glow"></div>
+        <div class="resource-icon-wrap">📄</div>
+        <div class="resource-category">Professional Document</div>
+        <h3 class="resource-title">Professional Resume</h3>
+        <p class="resource-desc">Education, skills, projects, achievements and professional experience.</p>
+        <div class="resource-btns">
+          <a href="assets/pdf/Prajwal_Pawar_Resume.pdf" target="_blank" class="resource-btn primary">View Resume →</a>
+        </div>
+      </div>
+
+      <div class="resource-card fade-up">
+        <div class="resource-card-glow"></div>
+        <div class="resource-icon-wrap">🖌️</div>
+        <div class="resource-category">UI / UX Design</div>
+        <h3 class="resource-title">Figma Portfolio</h3>
+        <p class="resource-desc">Landing pages, mobile interfaces, dashboards and design systems.</p>
+        <div class="resource-btns">
+          <a href="assets/pdf/Prajwal_Pawar_Figma_Portfolio.pdf" target="_blank" class="resource-btn primary">View Portfolio →</a>
+        </div>
+      </div>
+
+      <div class="resource-card fade-up">
+        <div class="resource-card-glow"></div>
+        <div class="resource-icon-wrap">🎨</div>
+        <div class="resource-category">Graphic Design</div>
+        <h3 class="resource-title">Graphic Design Portfolio</h3>
+        <p class="resource-desc">Posters, branding, social media campaigns and creative visual work.</p>
+        <div class="resource-btns">
+          <a href="assets/pdf/Prajwal_Pawar_Graphic_Design_Portfolio.pdf" target="_blank" class="resource-btn primary">View Portfolio →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <span class="section-label" style="color:var(--accent)">Credentials</span>
+    <h2 class="section-title" style="color:var(--paper)">Certifications</h2>
+    <div class="cert-grid">
+      <div class="cert-card fade-up">
+        <div class="cert-issuer">In Progress / Planned</div>
+        <div class="cert-name">Google UX Design Certificate</div>
+        <div class="cert-note">Coursera · Recommended Priority #1</div>
+      </div>
+      <div class="cert-card fade-up">
+        <div class="cert-issuer">In Progress / Planned</div>
+        <div class="cert-name">Meta Social Media Marketing</div>
+        <div class="cert-note">Coursera · For Digital Marketing Track</div>
+      </div>
+      <div class="cert-card fade-up">
+        <div class="cert-issuer">In Progress / Planned</div>
+        <div class="cert-name">CompTIA Security+</div>
+        <div class="cert-note">For Cybersecurity Career Track</div>
+      </div>
+      <div class="cert-card fade-up">
+        <div class="cert-issuer">Apna College</div>
+        <div class="cert-name">Python Programming</div>
+        <div class="cert-note">Theory Completed · Hands-on Projects Ongoing</div>
+      </div>
+      <div class="cert-card fade-up">
+        <div class="cert-issuer">College Involvement</div>
+        <div class="cert-name">Tech Mela 2026</div>
+        <div class="cert-note">Sponsorship Proposal Lead · Event Design</div>
+      </div>
+      <div class="cert-card fade-up">
+        <div class="cert-issuer">Add Yours Here</div>
+        <div class="cert-name">Your Next Certificate</div>
+        <div class="cert-note">This slot is waiting for you to earn it →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:1rem;">
+      <span class="section-label">Real World Work</span>
+      <h2 class="section-title">Experience</h2>
+    </div>
+    <div class="exp-timeline">
+
+      <div class="exp-item fade-up">
+        <div class="exp-date">Jul 2024 · Singapore (Remote)</div>
+        <div class="exp-role">Software Testing Exposure</div>
+        <div class="exp-org">Airworks Enterprise Pte Ltd — Singapore</div>
+        <ul class="exp-bullets">
+          <li>Gained guided exposure to software testing workflows and quality assurance practices in a professional international environment.</li>
+          <li>Learned application validation, defect documentation, and testing fundamentals across real software systems.</li>
+          <li>Developed understanding of professional software development lifecycles and QA standards.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Software Testing</span>
+          <span class="exp-tag">QA</span>
+          <span class="exp-tag">International</span>
+        </div>
+      </div>
+
+      <div class="exp-item fade-up">
+        <div class="exp-date">Ongoing · Hubballi</div>
+        <div class="exp-role">Social Media & Digital Operations</div>
+        <div class="exp-org">Family-Run Media Agency — KBDESIGN & Marketing</div>
+        <ul class="exp-bullets">
+          <li>Led inaugural ceremony media coverage for <strong>PVR INOX Hubballi</strong> at Inorbit Mall, covering the inauguration by actress Misha Narang.</li>
+          <li>Worked as Assistant Videographer on commercial shoots for Radiant Vista, Royal Ritz, Hoysala Hotel, and other brand clients.</li>
+          <li>Assisted photography and videography on <strong>Food Travel Vibe</strong> content creation productions, including shoots with influencer Aishwarya Bhute.</li>
+          <li>Edited creative and video content for KBDESIGN & Marketing and WeddingCardsHubballi.</li>
+          <li>Assisted in content planning, branding strategy, and digital campaign execution across social platforms.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Video Editing</span>
+          <span class="exp-tag">Videography</span>
+          <span class="exp-tag">Social Media</span>
+          <span class="exp-tag">Branding</span>
+          <span class="exp-tag">Client Work</span>
+        </div>
+      </div>
+
+      <div class="exp-item fade-up">
+        <div class="exp-date">Sep 2025 – Present · P.C. Jabin Science College</div>
+        <div class="exp-role">Design & Branding Contributor</div>
+        <div class="exp-org">College Activities / NSS — KLE Society's P.C. Jabin Science College</div>
+        <ul class="exp-bullets">
+          <li>Created posters, banners, presentations, and branded digital assets for college and NSS events.</li>
+          <li>Developed social media content for official college Instagram and departmental promotional campaigns.</li>
+          <li>Designed and developed the <strong>ElectroNova 2K26</strong> frontend website — including a digital judging interface replacing paper-based evaluation with automatic score generation.</li>
+          <li>Maintained visual consistency across all promotional materials for departmental activities.</li>
+          <li>Shortlisted for Student Council selections.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag">Graphic Design</span>
+          <span class="exp-tag">HTML/CSS</span>
+          <span class="exp-tag">NSS</span>
+          <span class="exp-tag">Event Design</span>
+          <span class="exp-tag">Web Dev</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <h2 class="contact-big">Let's<br><em>Build</em><br>Something</h2>
+      <p class="contact-sub">
+        Open to freelance projects, internships, design collaborations, and college project work. If you have a brief, an idea, or just want to connect — reach out.
+      </p>
+      <p style="font-size:.85rem; letter-spacing:1.5px; color:var(--muted); margin-bottom:2rem;">
+        📩 prajwal08pawar.work@gmail.com
+      </p>
+      <div class="contact-links">
+        <a class="contact-link primary" href="mailto:prajwal08pawar.work@gmail.com">Email Me</a>
+        <a class="contact-link" href="https://www.linkedin.com/in/prajwal-pawar-94951a289" target="_blank">LinkedIn</a>
+        <a class="contact-link" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank">GitHub</a>
+        <a class="contact-link" href="https://www.instagram.com/YOUR_INSTAGRAM_USERNAME" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Prajwal Pawar — Hubballi, Karnataka</span>
+  <span>Designed with intention. Built to get hired.</span>
+  <span>Available for <a href="#contact">freelance work →</a></span>
+</footer>
+
+<script>
+  // Dark mode toggle
+  const themeBtn = document.getElementById('themeToggle');
+  const body = document.body;
+  // Check saved preference
+  if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+    themeBtn.textContent = '☀️';
+  }
+  themeBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    themeBtn.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.15;
+    ry += (my - ry) * 0.15;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('a, button, .project-card, .skill-card, .resource-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.width = '20px';
+      cursor.style.height = '20px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.width = '12px';
+      cursor.style.height = '12px';
+    });
+  });
+
+  // Fade-up on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // Case study toggle
+  function toggleCase(header) {
+    const body = header.nextElementSibling;
+    const toggle = header.querySelector('.case-toggle');
+    body.classList.toggle('open');
+    toggle.textContent = body.classList.contains('open') ? '−' : '+';
+  }
+
+  // Stagger fade on hero
+  document.querySelectorAll('#hero .fade-up').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.15) + 's';
+    setTimeout(() => el.classList.add('visible'), 100 + i * 150);
+  });
+
+  // Resource card — subtle mouse parallax glow
+  document.querySelectorAll('.resource-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--glow-x', x + '%');
+      card.style.setProperty('--glow-y', y + '%');
+    });
+  });
+</script>
+</body>
+</html>
